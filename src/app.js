@@ -2,6 +2,8 @@ const express = require('express');
 
 const app = express();
 
+const blogPostRouter = require('./routes/blogPost')
+
 app.use(express.json());
 
 app.get('/', (req,res) => {
@@ -10,5 +12,6 @@ app.get('/', (req,res) => {
 
 })
 
+app.use('/blog', blogPostRouter)
 
 module.exports = app;
