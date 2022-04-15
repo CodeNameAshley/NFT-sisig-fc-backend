@@ -8,7 +8,7 @@ exports.create = async (req,res) => {
     try {
         db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', [title, blog]);
 
-        res.send('Blog created').status(201)
+        res.send('Blog created').status(200)
         } catch (err) {
             res.status(500).json(err)
         }
