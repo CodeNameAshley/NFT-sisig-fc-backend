@@ -21,13 +21,9 @@ exports.read = async (req, res) => {
 
     try {
         const [ blogs ] = await db.query('SELECT * FROM Blogs')
-        console.log(blogs)
-        res.status(200)
-        res.json(blogs)
+        res.status(200).json(blogs)
     } catch (err) {
-        res.status(500)
-        res.json(err)
-        console.log(err)
+        res.status(500).json(err)
     }
 
     db.close()
