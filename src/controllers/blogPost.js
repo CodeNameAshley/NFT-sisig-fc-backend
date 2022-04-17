@@ -15,3 +15,20 @@ exports.create = async (req,res) => {
 
         db.close();
 }
+
+exports.read = async (req, res) => {
+    const db = await getDb();
+
+    try {
+        const [ blogs ] = await db.query('SELECT * FROM Blogs')
+        console.log(blogs)
+        res.status(200)
+        res.json(blogs)
+    } catch (err) {
+        res.status(500)
+        res.json(err)
+        console.log(err)
+    }
+
+    db.close()
+}
