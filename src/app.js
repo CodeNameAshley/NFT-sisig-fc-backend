@@ -12,6 +12,6 @@ app.get('/', (req,res) => {
 
 })
 
-app.use('/blog', blogPostRouter)
+app.use('/blogs', blogPostRouter)
 
 module.exports = app;

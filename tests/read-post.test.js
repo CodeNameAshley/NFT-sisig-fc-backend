@@ -10,15 +10,17 @@ describe('read posts', ()  => {
     beforeEach(async () => {
         db = await getDb();
         await Promise.all([
-            db.query('INSERT INTO Blogs (title, blog) VALUES (?. ?)', [
+            db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', [
                 'Second Post',
                 'This is my second post',
             ]),
-            db.query('INSERT INTO Blogs (title, blog) VALUES (?. ?)', [
+
+            db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', [
                 'Third Post',
                 'This is my third post',
             ]),
-            db.query('INSERT INTO Blogs (title, blog) VALUES (?. ?)', [
+
+            db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', [
                 'Fourth Post',
                 'This is my fourth post',
             ]),
@@ -34,8 +36,8 @@ describe('read posts', ()  => {
 
     describe('/blogs', () => {
         describe('GET', () => {
-            it('returns alla rtist records in the database', async () => {
-                const res = await request(app).get('/artist').send();
+            it('returns all blog posts in the database', async () => {
+                const res = await request(app).get('/blogs').send();
 
                 expect(res.status).to.equal(200);
                 expect(res.body.length).to.equal(3);

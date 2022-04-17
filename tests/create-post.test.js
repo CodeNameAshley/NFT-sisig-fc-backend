@@ -12,10 +12,10 @@ describe('create a blog post', () => {
         await db.close();
     })
 
-    describe('/blog', () => {
+    describe('/blogs', () => {
         describe('POST', () => {
             it('creates a new post in the blog section of the database', async () => {
-                const res = await request(app).post('/blog').send({
+                const res = await request(app).post('/blogs').send({
                     title: 'Start of a new blog',
                     blog: 'This is the start of my new blog'
                 });
