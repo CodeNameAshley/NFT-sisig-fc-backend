@@ -1,7 +1,7 @@
 const getDb = require("../services/db.js");
 
 
-exports.create = async (req,res) => {
+exports.createBlogPost = async (req,res) => {
     const db = await getDb();
     const {title, blog} = req.body;
 
@@ -16,7 +16,7 @@ exports.create = async (req,res) => {
         db.close();
 }
 
-exports.read = async (req, res) => {
+exports.readAllBlogPost = async (req, res) => {
     const db = await getDb();
 
     try {
@@ -24,6 +24,23 @@ exports.read = async (req, res) => {
         res.status(200).json(blogs)
     } catch (err) {
         res.status(500).json(err)
+    }
+
+    db.close()
+}
+
+exports.readByBlogId = async (req,res) => {
+    const db = await getDb();
+    const { blogId } = req.params;
+
+    const [[posts]] = await db.query(`SELECT * FROM Blogs WHERE id = ?`, [
+        blogId,
+    ]);
+
+    if (!posts) {
+        res.status(404).send(`Blog post not found with ID ${blogId}`)
+    } else {
+        res.status(200).json(posts);
     }
 
     db.close()

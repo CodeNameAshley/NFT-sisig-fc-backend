@@ -3,7 +3,8 @@ const router = express.Router()
 
 const blogPost = require('../controllers/blogPost');
 
-router.post('/', blogPost.create)
-router.get('/', blogPost.read)
+router.post('/', blogPost.createBlogPost)
+router.get('/', blogPost.readAllBlogPost)
+router.get('/:blogId', blogPost.readByBlogId)
 
 module.exports = router;
