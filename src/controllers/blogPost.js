@@ -45,3 +45,28 @@ exports.readByBlogId = async (req,res) => {
 
     db.close()
 }
+
+exports.updateByBlogId = async (req,res) => {
+    const db = await getDb();
+    const details  = req.body
+    const { blogId } = req.params;
+
+
+    try {
+        const [[existingBlogs]] = await db.query(`SELECT * FROM Blogs WHERE id = ?`, [blogId]);
+
+        
+        if(existingBlogs) {
+            await db.query(`UPDATE Blogs SET ? WHERE id = ?`, [details, blogId])
+            res.status(200)
+            res.send('Blog Post Updated')
+        } else {
+            res.status(404)
+            res.send('Nothing was updated')
+        }
+    } catch (err) {
+        res.status(500).send('Update failed')
+    }
+
+    db.close();
+}
