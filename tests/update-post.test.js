@@ -34,7 +34,7 @@ describe('update post', () => {
         await db.close();
     })
 
-    describe('/blogs/:blogID', () => {
+    describe('/blogs/:blogId', () => {
         describe('PATCH', () => {
             it('updates a single blog post with the correct ID', async () => {
 
@@ -45,12 +45,12 @@ describe('update post', () => {
     
                 const [[newBlogPost]] = await db.query('SELECT * FROM Blogs WHERE id = ?', [blog.id])
     
-                expect(newBlogPost).to.equal.apply('updated title')
+                expect(newBlogPost.title).to.equal('updated title')
             })
         })
 
         it('returns a 404 if the blog post is not in the database', async () => {
-            const res = await request(app).patch('/blogs/12345').send({name: 'updated title'});
+            const res = await request(app).patch('/blogs/12345').send({title: 'updated title'});
 
             expect(res.status).to.equal(404);
         })
