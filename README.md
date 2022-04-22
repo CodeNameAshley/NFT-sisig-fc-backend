@@ -32,23 +32,23 @@ MySQL Workbench
 This is a TDD API that uses CRUD (create, read, update, delete), and integration tests.
 
 # Code Example
-`const getDb = require("../services/db.js");`
+const getDb = require("../services/db.js");
 
 
-`exports.createBlogPost = async (req,res) => {`
-    `const db = await getDb();`
-    `const {title, blog} = req.body;`
+`exports.createBlogPost = async (req,res) => {
+    const db = await getDb();
+    const {title, blog} = req.body;
 
-   ` try {`
-        `db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', ``[title, blog]);`
+    try {
+        db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', [title, blog]);
 
-        `res.send('Blog created').status(200)`
-        `}` `catch (err)` `{`
-            `res.status(500).json(err)`
-        `}`
+        res.send('Blog created').status(200)
+        } catch (err) {
+            res.status(500).json(err)
+        }
 
-        `db.close();`
-`}`
+        db.close();
+}`
 
 # Installation
 To install
