@@ -32,10 +32,10 @@ MySQL Workbench
 This is a TDD API that uses CRUD (create, read, update, delete), and integration tests.
 
 # Code Example
-const getDb = require("../services/db.js");
+`const getDb = require("../services/db.js");
 
 
-`exports.createBlogPost = async (req,res) => {
+exports.createBlogPost = async (req,res) => {
     const db = await getDb();
     const {title, blog} = req.body;
 
