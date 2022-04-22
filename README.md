@@ -1,55 +1,121 @@
-# Project title
-A little info about your project and/ or overview that explains what the project is about.
+# ⭐ SFC API ⭐
+This API is a personal project made for an app called SFC. SFC is a NFT sports team. This API provides the backend which will be used to retrieve blog posts used to update the team. 
 
 # Motivation
-A short description of the motivation behind the creation and maintenance of the project. This should explain why the project exists.
+The motivation behind the creation of this project is to be able to showcase my ability to build a full stack application. This application exists to provide data storage for an app. The maintenance of this app will be provided by the creator.
 
 # Build status
-Build status of continus integration i.e. travis, appveyor etc. Ex. -
-
-Build Status Windows Build Status
+Build status of continuous integration.
 
 # Code style
-If you're using any code style like xo, standard etc. That will help others while contributing to your project. Ex. -
-
-js-standard-style
+Standard ECMAScript 2022. All files are separated into their respective folders - controllers, routes, services, tests, utils.
 
 # Screenshots
-Include logo/demo screenshot etc.
+Please forgive me I'm working on this!
 
 # Tech/framework used
-Ex. -
+JavaScript
+Node.js
+Express.js
+Mocha
+Chai
+Supertest
+MySQL
 
-Built with
+VSCode
+Postman
+Docker
+MySQL Workbench
 
-Electron
 
 # Features
-What makes your project stand out?
+This is a TDD API that uses CRUD (create, read, update, delete), and integration tests.
 
 # Code Example
-Show what the library does as concisely as possible, developers should be able to figure out how your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+`const getDb = require("../services/db.js");`
+
+
+`exports.createBlogPost = async (req,res) => {`
+    `const db = await getDb();`
+    `const {title, blog} = req.body;`
+
+   ` try {`
+        `db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', ``[title, blog]);`
+
+        `res.send('Blog created').status(200)`
+        `}` `catch (err)` `{`
+            `res.status(500).json(err)`
+        `}`
+
+        `db.close();`
+`}`
 
 # Installation
-Provide step by step series of examples and explanations about how to get a development env running.
+To install
+`npm i`
+
+To run app
+`npm start`
 
 # API Reference
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
+GET localhost:3000/blogs
+- retrieves all blog post from the API, ID (auto increment) is visible.
+  
+POST localhost:3000/blogs
+- creates a blog post with auto incremented ID.
+
+PATCH localhost:3000/blogs/:blogId
+- updates a single blog post by ID, must specify which key value pair to update.
+
+DELETE localhost:3000/blogs/:blogId
+- deletes a single blog post by ID.
+
 
 # Tests
-Describe and show how to run the tests with code examples.
+To run all tests
+`npm test`
+
+A test snippet
+`const {expect} = require('chai');
+const request = require('supertest');
+const getDb = require('../src/services/db')
+const app = require('../src/app');
+
+describe('create a blog post', () => {
+    let db;
+    beforeEach(async () => (db = await getDb()));
+
+    afterEach(async () => {
+        await db.query('DELETE FROM Blogs');
+        await db.close();
+    })
+
+    describe('/blogs', () => {
+        describe('POST', () => {
+            it('creates a new post in the blog section of the database', async () => {
+                const res = await request(app).post('/blogs').send({
+                    title: 'Start of a new blog',
+                    blog: 'This is the start of my new blog'
+                });
+
+                expect(res.status).to.equal(200);
+
+                const [[blogEntries]] = await db.query(
+                    `SELECT * FROM Blogs WHERE title = 'Start of a new blog'`
+                );
+
+                expect(blogEntries.title).to.equal('Start of a new blog');
+                expect(blogEntries.blog).to.equal('This is the start of my new blog')
+            })
+        })
+    })
+})`
 
 # How to use?
-If people like your project they’ll want to learn how they can use it. To do so include step by step guide to use your project.
+Currently in the works
 
 # Contribute
-Let people know how they can contribute into your project. A contributing guideline will be a big plus.
+The project is about to deployed, how to contribute will be update after.
 
 # Credits
-Give proper credits. This could be a link to any repo which inspired you to build this project, any blogposts or links to people who contrbuted in this project.
-
-Anything else that seems useful
-License
-A short snippet describing the license (MIT, Apache etc)
-
-MIT © Ashley Lhuillier
+MIT © Ashley @ CodeNameAshley
