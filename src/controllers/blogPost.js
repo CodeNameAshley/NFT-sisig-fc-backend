@@ -70,3 +70,28 @@ exports.updateByBlogId = async (req,res) => {
 
     db.close();
 }
+
+exports.deleteByBlogId = async (req,res) => {
+    const db = await getDb();
+    const details  = req.body
+    const { blogId } = req.params;
+
+
+    try {
+        const [[existingBlogs]] = await db.query(`SELECT * FROM Blogs WHERE id = ?`, [blogId]);
+
+        
+        if(existingBlogs) {
+            await db.query(`DELETE from Blogs WHERE id = ?`, [blogId])
+            res.status(200)
+            res.send('Blog Post Deleted')
+        } else {
+            res.status(404)
+            res.send('Nothing was deleted')
+        }
+    } catch (err) {
+        res.status(500).send('This delete request failed')
+    }
+
+    db.close();
+}
