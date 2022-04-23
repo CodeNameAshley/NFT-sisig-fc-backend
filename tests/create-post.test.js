@@ -22,12 +22,12 @@ describe('create a blog post', () => {
 
                 expect(res.status).to.equal(200);
 
-                const [[blogEntries]] = await db.query(
+                const [[blogs]] = await db.query(
                     `SELECT * FROM Blogs WHERE title = 'Start of a new blog'`
                 );
 
-                expect(blogEntries.title).to.equal('Start of a new blog');
-                expect(blogEntries.blog).to.equal('This is the start of my new blog')
+                expect(blogs.title).to.equal('Start of a new blog');
+                expect(blogs.blog).to.equal('This is the start of my new blog')
             })
         })
     })

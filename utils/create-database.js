@@ -39,6 +39,14 @@ const setUpDatabase = async () => {
         title VARCHAR(255),
         blog TEXT
     )`)
+    await db.query(`CREATE TABLE IF NOT EXISTS Managers (
+      id INT PRIMARY KEY auto_increment,
+      manager VARCHAR(255),
+      managerInfo TEXT,
+      team VARCHAR(255),
+      teamInfo TEXT
+
+  )`)
 
     db.close();
 

@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 
 const blogPostRouter = require('./routes/blogPost')
+const managersRouter = require('./routes/managers')
 
 app.use(express.json());
 
@@ -13,5 +14,6 @@ app.get('/', (req,res) => {
 })
 
 app.use('/blogs', blogPostRouter)
+app.use('/managers', managersRouter)
 
 module.exports = app;
