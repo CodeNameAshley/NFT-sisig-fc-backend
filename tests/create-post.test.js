@@ -5,7 +5,7 @@ const app = require('../src/app');
 
 describe('create a blog post', () => {
     let db;
-    beforeEach(async () => (db = await getDb()));
+    beforeEach(async () => {db = await getDb()});
 
     afterEach(async () => {
         await db.query('DELETE FROM Blogs');
@@ -15,19 +15,22 @@ describe('create a blog post', () => {
     describe('/blogs', () => {
         describe('POST', () => {
             it('creates a new post in the blog section of the database', async () => {
-                const res = await request(app).post('/blogs').send({
-                    title: 'Start of a new blog',
-                    blog: 'This is the start of my new blog'
-                });
+                const response = await request(app).post('/blogs').send(
+                    {title:'Ashley', blog:'This is the start of my new blog'});
 
-                expect(res.status).to.equal(200);
+                expect(response.status).to.equal(200);
+                
+                console.log(response._data)
+                console.log(response.method)
 
-                const [[blogs]] = await db.query(
-                    `SELECT * FROM Blogs WHERE title = 'Start of a new blog'`
+                const [[blogEntries]] = await db.query(
+                    `SELECT * FROM Blogs WHERE title = 'Ashley'`
                 );
 
-                expect(blogs.title).to.equal('Start of a new blog');
-                expect(blogs.blog).to.equal('This is the start of my new blog')
+                console.log(blogEntries);
+
+                expect(blogEntries.title).to.equal('Ashley');
+                expect(blogEntries.blog).to.equal('This is the start of my new blog')
             })
         })
     })

@@ -13,7 +13,7 @@ exports.createBlogPost = async (req,res) => {
             res.status(500).json(err)
         }
 
-        db.close();
+    db.close();
 }
 
 exports.readAllBlogPost = async (req, res) => {

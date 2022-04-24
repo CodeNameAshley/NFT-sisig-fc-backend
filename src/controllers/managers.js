@@ -6,12 +6,17 @@ exports.createManager= async (req,res) => {
     const {manager, managerInfo, team, teamInfo} = req.body;
 
     try {
+        // this code blocks gets all managers in the database by their name
+        // for now this works, but when team gets bigger team name needs to be included as a parameter for creating a team
         const [[existingManager]] = await db.query('SELECT * FROM Managers WHERE manager = ?', [manager]);
 
+        // if there is already a manager with that name that API will not allow you to create another profile.
         if(!existingManager) {
             db.query('INSERT INTO Managers (manager, managerInfo, team, teamInfo) VALUES (?, ?, ?, ?)', [manager, managerInfo, team, teamInfo]);
     
             res.send('Manager Created').status(200)
+        } else if (existingManager) {
+            res.send('This manager already exists!')
         } else {
             res.status(404)
             res.send('Manager not found')
@@ -22,4 +27,17 @@ exports.createManager= async (req,res) => {
         }
 
     db.close();
+}
+
+exports.readAllManagers = async (req, res) => {
+    const db = await getDb();
+
+    try {
+        const [ managers ] = await db.query('SELECT * FROM Managers')
+        res.status(200).json(managers)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+
+    db.close()
 }

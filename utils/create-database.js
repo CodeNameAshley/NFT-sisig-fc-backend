@@ -33,12 +33,15 @@ const setUpDatabase = async () => {
 
     // create the database if it doesn't already exist
     await db.query(`CREATE DATABASE IF NOT EXISTS ${DB_NAME}`);
+
     await db.query(`USE ${DB_NAME}`);
+
     await db.query(`CREATE TABLE IF NOT EXISTS Blogs (
         id INT PRIMARY KEY auto_increment,
         title VARCHAR(255),
         blog TEXT
-    )`)
+    )`);
+
     await db.query(`CREATE TABLE IF NOT EXISTS Managers (
       id INT PRIMARY KEY auto_increment,
       manager VARCHAR(255),
@@ -46,7 +49,7 @@ const setUpDatabase = async () => {
       team VARCHAR(255),
       teamInfo TEXT
 
-  )`)
+  )`);
 
     db.close();
 

@@ -11,17 +11,17 @@ describe('read posts', ()  => {
         db = await getDb();
         await Promise.all([
             db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', [
-                'Second Post',
-                'This is my second post',
+                'Start of a new blog',
+                'This is the start of my new blog',
             ]),
 
             db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', [
-                'Third Post',
+                'Second Post',
                 'This is my third post',
             ]),
 
             db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', [
-                'Fourth Post',
+                'Third Post',
                 'This is my fourth post',
             ]),
         ]);
@@ -55,7 +55,6 @@ describe('read posts', ()  => {
         describe('GET', () => {
             it('returns a single blog post with the correct ID', async () => {
                 const expected = posts[0];
-                console.log(expected)
                 const res = await request(app).get(`/blogs/${expected.id}`).send();
 
                 expect(res.status).to.equal(200);
