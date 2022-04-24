@@ -11,17 +11,17 @@ describe('update post', () => {
         db = await getDb();
         await Promise.all([
             db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', [
-                'Second Post',
-                'This is my second post',
+                'Start of a new blog',
+                'This is the start of my new blog',
             ]),
 
             db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', [
-                'Third Post',
+                'Second Post',
                 'This is my third post',
             ]),
 
             db.query('INSERT INTO Blogs (title, blog) VALUES (?, ?)', [
-                'Fourth Post',
+                'Third Post',
                 'This is my fourth post',
             ]),
         ]);

@@ -5,7 +5,7 @@ const app = require('../src/app');
 
 describe('create a profile for a manager', () => {
     let db;
-    beforeEach(async () => (db = await getDb()));
+    beforeEach(async () => {db = await getDb()});
 
     afterEach(async () => {
         await db.query('DELETE FROM Managers');
