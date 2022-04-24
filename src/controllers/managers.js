@@ -41,3 +41,24 @@ exports.readAllManagers = async (req, res) => {
 
     db.close()
 }
+
+exports.updateByManagerId = async (req,res) => {
+    const db = await getDb();
+    const details = req.body;
+    const {managerId} = req.params;
+
+    try {
+        const [[existingManager]] = await db.query(`SELECT * FROM Managers WHERE id = ?`, [managerId]);
+
+        if(existingManager) {
+            await db.query(`UPDATE Managers SET ? WHERE id = ?`, [details, managerId])
+            res.status(200).send('Manager updated')
+        } else {
+            res.status(404).send('Manager not found')
+        }
+    } catch (err) {
+        res.status(500).send('Update failed')
+    }
+
+    db.close();
+}
