@@ -16,21 +16,19 @@ describe('create a blog post', () => {
         describe('POST', () => {
             it('creates a new post in the blog section of the database', async () => {
                 const response = await request(app).post('/blogs').send(
-                    {title:'Ashley', blog:'This is the start of my new blog'});
+                    {title:'This is the first ever blog!', blog:'This is the start of my new blog'});
 
                 expect(response.status).to.equal(200);
                 
-                console.log(response._data)
-                console.log(response.method)
+                // This test will only pass if Response is console logged.
+                console.log(response)
 
-                const [[blogEntries]] = await db.query(
-                    `SELECT * FROM Blogs WHERE title = 'Ashley'`
-                );
+                const [[blogEntry]] = await db.query(`SELECT * FROM Blogs WHERE title = 'This is the first ever blog!'`)
 
-                console.log(blogEntries);
+                console.log(blogEntry);
 
-                expect(blogEntries.title).to.equal('Ashley');
-                expect(blogEntries.blog).to.equal('This is the start of my new blog')
+                expect(blogEntry.title).to.equal('This is the first ever blog!');
+                expect(blogEntry.blog).to.equal('This is the start of my new blog')
             })
         })
     })
