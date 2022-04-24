@@ -73,7 +73,6 @@ exports.updateByBlogId = async (req,res) => {
 
 exports.deleteByBlogId = async (req,res) => {
     const db = await getDb();
-    const details  = req.body
     const { blogId } = req.params;
 
 
