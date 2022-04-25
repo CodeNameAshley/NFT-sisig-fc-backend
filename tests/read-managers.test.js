@@ -57,4 +57,22 @@ describe('read managers', ()  => {
         })
     })
 
+    describe('managers/:managerId', () => {
+        describe('GET', () => {
+            it('returns a single manager with the correct ID', async () => {
+                const expected = managers[0];
+                const res = await request(app).get(`/managers/${expected.id}`).send();
+
+                expect(res.status).to.equal(200);
+                expect(res.body).to.deep.equal(expected);
+
+                it('returns a 404 if the blog post is not in the database', async () => {
+                    const res = await request(app).get('/managers/12345').send();
+
+                    expect(res.status).to.equal(404);
+                })
+            })
+        })
+    })
+
 })

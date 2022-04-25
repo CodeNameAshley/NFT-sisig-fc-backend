@@ -40,6 +40,21 @@ exports.readAllManagers = async (req, res) => {
     }
 
     db.close()
+};
+
+exports.readByManagerId = async (req,res) => {
+    const db = await getDb();
+    const {managerId} = req.params;
+
+    const [[managers]] = await db.query(`SELECT * FROM Managers WHERE id = ?`, [managerId]);
+
+    if(!managers) {
+        res.status(404).send('This manager does not exist!');
+    } else {
+        res.status(200).json(managers);
+    }
+
+    db.close();
 }
 
 exports.updateByManagerId = async (req,res) => {
